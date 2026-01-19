@@ -4,6 +4,16 @@ const express = require('express')
 const app = express() // the main app
 // const admin = express() // the sub app
 
+app.set('view engine','ejs ') // set the view engine to ejs
+
+// now learn about some inbuilt methods of express app
+// app.use this is used to mount middleware functions at a specific path
+// app.use() can be used to mount multiple middleware functions at a specific path
+
+app.get("/ejs",(req,res)=>{
+    res.render("index")
+})
+
 // app.use(express.json())
 // app.use(express.raw())
 // app.use(express.text())
@@ -71,9 +81,34 @@ app.get('/user/:id',(req,res)=>{
     res.send(`The user id is ${req.params.id}`)
 })
 
+// app.path this is used to get the path of the request and it returns the path of the request
+app.get('/path',(req,res)=>{
+    console.log(req.path);
+    res.send(`The path of the request is ${req.path}`)
+})
+
+// app.route this is used to create a route for a specific path and we can chain multiple methods to the same route
+app.route('/route')
+.get((req,res)=>{   
+    res.send('This is the GET method for /route')
+})
+.post((req,res)=>{
+    res.send('This is the POST method for /route')
+})
+.put((req,res)=>{
+    res.send('This is the PUT method for /route')
+})  
+.delete((req,res)=>{
+    res.send('This is the DELETE method for /route')
+})
+
+
+// app.get this is work for get method
+
 app.get('/about',(req,res)=>{
     res.send('This is the about page')
 })
+
 
 // app.use('/admin', admin)
 
