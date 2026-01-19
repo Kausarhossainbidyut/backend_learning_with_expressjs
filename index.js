@@ -3,14 +3,15 @@ const express = require('express')
 
 const app = express()
 
-app.use(express.json())
+// app.use(express.json())
+app.use(express.raw())
 
 app.get('/',(req,res)=>{
     res.send('Hello world')
 })
 
 app.post('/', (req, res)=>{
-    console.log(req.body.url);
+    console.log(req.body.toString());
     res.send('This is post route');
     
 })
