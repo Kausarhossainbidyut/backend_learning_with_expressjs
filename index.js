@@ -6,7 +6,8 @@ const app = express()
 // app.use(express.json())
 // app.use(express.raw())
 // app.use(express.text())
-app.use(express.urlencoded())
+// app.use(express.urlencoded())
+app.use(express.static(`${__dirname}/image`))
 
 app.get('/',(req,res)=>{
     res.send('Hello world')
