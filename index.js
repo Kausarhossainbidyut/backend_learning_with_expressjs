@@ -61,6 +61,11 @@ app.get('/',(req,res)=>{
     res.send('This is the home page')
 })
 
+// app.head this is work for head method
+app.head('/head',(req,res)=>{
+    res.send('This is the head method')
+})
+
 // app.get this is work for get method
 // app.METHOD this is used to get the specific method like app.get, app.post, app.put, app.delete
 // here METHOD is a placeholder for the specific HTTP method
