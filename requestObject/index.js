@@ -22,7 +22,7 @@ admin.get('/dashboard',(req,res)=>{
     // console.log('Query Parameters', req.query); // resulted Query Parameters: {}
     // console.log('Query', req.query); // given query parameters in object form
     // console.log('Params', req.params); // given params in object form
-
+    console.log(req.accepts('json')); // resulted true if the request content type is json
     
     res.send('This is the admin dashboard')
 })
@@ -32,9 +32,12 @@ app.get('/user/:id',userHandler)
 
 app.post('/submit',(req,res)=>{
 
-    console.log('Body:', req.body); // resulted Body: Body: { name: 'Bidyut', age: 23 }
-    console.log(req.route); // resulted Route: { path: '/submit', stack: [ [Layer] ] } an object containing the path and stack of middleware functions for this route
+    // console.log('Body:', req.body); // resulted Body: Body: { name: 'Bidyut', age: 23 }
+    // console.log(req.route); // resulted Route: { path: '/submit', stack: [ [Layer] ] } an object containing the path and stack of middleware functions for this route
     
+    // req.method
+    // console.log(req.accepted('html')); // resulted true if the request accepts html response type
+     // resulted true if the request content type is json
     
     res.send('Form submitted successfully')
     
