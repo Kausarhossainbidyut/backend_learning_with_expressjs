@@ -43,12 +43,14 @@ app.get("/detail", (req, res) => {
     //     }
     // });
 
-    res.cookie('name','Kausar Hossain Bidyut',{ // sets a cookie in the response
-        maxAge: 900000, // cookie will expire in 15 minutes
-        httpOnly: true ,// cookie is accessible only by the web server
-        secure: true, // cookie is only sent over HTTPS
-        sameSite: 'Strict', // cookie is not sent with cross-site requests   
-    })
+    // res.cookie('name','Kausar Hossain Bidyut',{ // sets a cookie in the response
+    //     maxAge: 900000, // cookie will expire in 15 minutes
+    //     httpOnly: true ,// cookie is accessible only by the web server
+    //     secure: true, // cookie is only sent over HTTPS
+    //     sameSite: 'Strict', // cookie is not sent with cross-site requests   
+    // })
+    // res.location('/test'); // sets the Location header for redirection
+    res.redirect('/about'); // redirects the client to the specified URL
     res.end(); // ends the response process
 })
 
