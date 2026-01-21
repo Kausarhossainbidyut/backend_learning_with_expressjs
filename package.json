@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Kausarhossainbidyut/backend_learning_with_expressjs#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "ejs": "^4.0.1",
     "express": "^4.22.1"
   }
