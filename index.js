@@ -50,7 +50,9 @@ app.get("/detail", (req, res) => {
     //     sameSite: 'Strict', // cookie is not sent with cross-site requests   
     // })
     // res.location('/test'); // sets the Location header for redirection
-    res.redirect('/about'); // redirects the client to the specified URL
+    // res.redirect('/about'); // redirects the client to the specified URL
+    res.set('Custom-Header', 'HeaderValue'); // sets a custom header in the response
+    console.log(res.get('Custom-Header')); // retrieves the value of the specified header
     res.end(); // ends the response process
 })
 
