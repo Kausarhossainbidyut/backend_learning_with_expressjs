@@ -28,20 +28,28 @@ app.get("/detail", (req, res) => {
 
     // res.sendStatus(404); // sets the status code and sends the corresponding status message as the response
 
-    res.format({ // performs content negotiation based on the Accept header
-        'text/plain': () => {
-            res.send('This is a plain text response');
-        },
-        'text/html': () => {
-            res.send('<h1>This is an HTML response</h1>');
-        }, 
-        'application/json': () => {
-            res.json({ message: 'This is a JSON response' });
-        },
-        default: () => {
-            res.status(406).send('Not Acceptable');
-        }
-    });
+    // res.format({ // performs content negotiation based on the Accept header
+    //     'text/plain': () => { // handles plain text response as per client request
+    //         res.send('This is a plain text response');
+    //     },
+    //     'text/html': () => { // handles HTML response as per client request
+    //         res.send('<h1>This is an HTML response</h1>');
+    //     }, 
+    //     'application/json': () => { // handles JSON response as per client request
+    //         res.json({ message: 'This is a JSON response' });
+    //     },
+    //     default: () => { // handles unsupported media types 
+    //         res.status(406).send('Not Acceptable');
+    //     }
+    // });
+
+    res.cookie('name','Kausar Hossain Bidyut',{ // sets a cookie in the response
+        maxAge: 900000, // cookie will expire in 15 minutes
+        httpOnly: true ,// cookie is accessible only by the web server
+        secure: true, // cookie is only sent over HTTPS
+        sameSite: 'Strict', // cookie is not sent with cross-site requests   
+    })
+    res.end(); // ends the response process
 })
 
 app.listen(3000, () => {
