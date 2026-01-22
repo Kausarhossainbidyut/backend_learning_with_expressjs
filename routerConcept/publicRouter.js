@@ -1,16 +1,33 @@
+
 const express = require('express');
 
 const publicRouter = express.Router();
 
-const log = (req, res, next) => {
-    console.log(`I am logging something `);
+// const log = (req, res, next) => {
+//     console.log(`I am logging something `);
+//     next();
+// }
+
+// publicRouter.all('*', log);
+// publicRouter.param('user', (req, res, next, id) => { // middleware for :user param
+//     req.user = id === '1' ? 'Admin User' : 'Normal User';
+//     next();
+// });
+
+publicRouter.param((param, option) => (req, res, next, value) => {
+    // Custom logic based on param and option
+    if(value === option){
+        next();
+    }else{
+        res.sendStatus(403); // Forbidden
+    }
     next();
-}
+});
 
-publicRouter.all('*', log);
+publicRouter.param('user', '12'); // middleware for :user param if user equals 12 then proceed otherwise block
 
-publicRouter.get('/', (req, res) => {
-    res.send('Public Home Page');
+publicRouter.get('/:user', (req, res) => {
+    res.send(`Hello admin`);
 }); 
 
 publicRouter.get('/about', (req, res) => {
