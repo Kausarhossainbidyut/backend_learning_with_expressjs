@@ -3,23 +3,33 @@ const express = require('express');
 
 const publicRouter = express.Router();
 
-publicRouter.route('/user')
-    .all((req, res, next) => {
-        console.log('Middleware for /user route');
-        next();
-    })
-    .get((req, res) => {
-        res.send('Public User GET Page');
-    })
-    .post((req, res) => {
-        res.send('Public User POST Page');
-    })
-    .put((req, res) => {
-        res.send('Public User PUT Page');
-    })
-    .delete((req, res) => {
-        res.send('Public User DELETE Page');
-    });
+publicRouter.use((req, res, next) => {
+    console.log('Public Router Middleware');
+    next();
+});
+
+
+publicRouter.get('/', (req, res) => {
+    res.send('Public Home Page');
+});
+
+// publicRouter.route('/user')
+//     .all((req, res, next) => {
+//         console.log('Middleware for /user route');
+//         next();
+//     })
+//     .get((req, res) => {
+//         res.send('Public User GET Page');
+//     })
+//     .post((req, res) => {
+//         res.send('Public User POST Page');
+//     })
+//     .put((req, res) => {
+//         res.send('Public User PUT Page');
+//     })
+//     .delete((req, res) => {
+//         res.send('Public User DELETE Page');
+//     });
 
 // const log = (req, res, next) => {
 //     console.log(`I am logging something `);
