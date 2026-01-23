@@ -3,15 +3,19 @@ const express = require('express');
 
 const publicRouter = express.Router();
 
-publicRouter.use((req, res, next) => {
-    console.log('Public Router Middleware');
-    next();
-});
+
+// router perterns with middleware
 
 
-publicRouter.get('/', (req, res) => {
-    res.send('Public Home Page');
-});
+// publicRouter.use((req, res, next) => {
+//     console.log('Public Router Middleware');
+//     next();
+// });
+
+
+// publicRouter.get('/', (req, res) => {
+//     res.send('Public Home Page');
+// });
 
 // publicRouter.route('/user')
 //     .all((req, res, next) => {
