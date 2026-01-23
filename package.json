@@ -20,6 +20,7 @@
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "ejs": "^4.0.1",
-    "express": "^4.22.1"
+    "express": "^4.22.1",
+    "multer": "^2.0.2"
   }
 }

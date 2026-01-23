@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express File upload with multer</title>
+</head>
+<body>
+    <form 
+    action="http://localhost:3000/"
+    method="post"
+    enctype="multipart/form-data"
+    >
+        <input type="file" name="avatar" multiple><br> <!-- multiple use for multiple file upload -->
+        <!-- <input type="file" name="gallery" multiple> multiple use for multiple file upload -->
+        <!-- <input type="text" name="name"><br> -->
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
