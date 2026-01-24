@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
     if(err){
         if(err instanceof multer.MulterError){
             res.status(500).send("There was an upload error.!")
-        }else{
+        }else{ // next day start from here
             res.status(500).send(err.message);
         }
     }else{
