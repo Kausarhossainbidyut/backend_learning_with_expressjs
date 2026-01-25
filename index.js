@@ -25,7 +25,7 @@ const upload = multer({
         }else  if(file.fieldname === 'doc'){
             if(file.mimetype === 'application/pdf'){
                 cb(null, true);
-            }else{ // dsf
+            }else{ 
                 cb(new Error('Only .pdf format allowed!'));
             }
         }else {
