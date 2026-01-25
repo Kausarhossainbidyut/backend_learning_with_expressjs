@@ -12,7 +12,8 @@ const upload = multer({
         fileSize: 1024 * 1024 * 1 // 1 MB file size limit
     },
     fileFilter: (req, file, cb) => {
-        if (
+        if(file.fieldname === 'avatar'){
+            if (
             file.mimetype === 'image/png' || 
             file.mimetype === 'image/jpg' || 
             file.mimetype === 'image/jpeg'
@@ -20,6 +21,15 @@ const upload = multer({
             cb(null, true);
         }else{
             cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+        }else  if(file.fieldname === 'doc'){
+            if(file.mimetype === 'application/pdf'){
+                cb(null, true);
+            }else{ // dsf
+                cb(new Error('Only .pdf format allowed!'));
+            }
+        }else {
+            cb(new Error('There was an unknown error!'));
         }
     }
 });
@@ -48,6 +58,12 @@ app.post('/', upload.single('avatar'), (req,res)=>{
     res.send("hello world");
 })
 
+app.post('/', upload.fields([
+    { name: 'avatar', maxCount: 1 },
+    { name: 'doc', maxCount: 1 }
+]),(req, res) => {
+    res.send('Hello World!');
+});
 
 //  error handling middleware
 app.use((err, req, res, next) => {
