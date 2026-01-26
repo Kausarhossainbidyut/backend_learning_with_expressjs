@@ -82,6 +82,8 @@ app.post('/', upload.fields([
     { name: 'avatar', maxCount: 1 },
     { name: 'doc', maxCount: 1 }
 ]),(req, res) => {
+    console.log(req.files);
+    
     res.send('Hello World!');
 });
 
