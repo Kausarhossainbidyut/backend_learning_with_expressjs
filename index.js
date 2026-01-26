@@ -1,13 +1,33 @@
 const express = require('express');
 const multer = require('multer');
+const path = require('path');
 
 
 // file upload folder 
 const UPLOADS_FOLDER = './uploads/';
 
+// define storage for the multer
+const storage = multer.diskStorage({
+    // destination for files
+    destination: (req, file, cb) => {
+        cb(null, UPLOADS_FOLDER);
+    },
+    filename: (req, file, cb) => {
+        // Important file.pdf  --> file.originalname => important-file-1634234234.pdf
+        const fileExt = path.extname(file.originalname);
+        const fileName = file.originalname
+                            .replace(fileExt, '')
+                            .toLowerCase()
+                            .split(' ')
+                            .join('-') + '-' + Date.now();
+        cb(null, fileName + fileExt);
+    }
+});
+
 // prepare the final multer upload object
 const upload = multer({
-    dest: UPLOADS_FOLDER,
+    // dest: UPLOADS_FOLDER,
+    storage: storage, 
     limits: {
         fileSize: 1024 * 1024 * 1 // 1 MB file size limit
     },
@@ -54,9 +74,9 @@ avatar is the name of the file input field
  * upload.none() is used when there is no file upload but we want to use multer for other purposes like parsing form data
  */
 
-app.post('/', upload.single('avatar'), (req,res)=>{
-    res.send("hello world");
-})
+// app.post('/', upload.single('avatar'), (req,res)=>{
+//     res.send("hello world");
+// })
 
 app.post('/', upload.fields([
     { name: 'avatar', maxCount: 1 },
