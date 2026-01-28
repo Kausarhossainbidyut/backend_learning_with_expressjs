@@ -34,15 +34,82 @@ router.post('/', async (req, res) => {
   }
 });
 
-// post multiple todos
-router.post('/all', async(req, res) => {
+//  Create multiple todos
+router.post('/all', async (req, res) => {
+  try {
+    const todosData = req.body;
 
+    const result = await Todo.insertMany(todosData);
+
+    res.status(201).json({
+      message: "Multiple todos created successfully",
+      data: result,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: "Multiple insert failed",
+      details: err.message,
+    });
+  }
 });
 
-// put update a todo by id
-router.put('/:id', async(req, res) => {
+// update a todo by id
+router.put('all/:id', async (req, res) => {
+  try {
+    const result = await Todo.updateOne(
+      { _id: req.params.id },
+      { $set: req.body }
+    );
 
+    if (result.matchedCount === 0) {
+      return res.status(404).json({
+        message: "Todo not found"
+      });
+    }
+
+    res.status(200).json({
+      message: "Todo updated successfully",
+      result: result
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: "Todo update failed",
+      details: err.message
+    });
+  }
 });
+
+// put update a todo by id using findByIdAndUpdate
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },   //  safe update
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedTodo) {
+      return res.status(404).json({
+        message: "Todo not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Todo updated successfully",
+      data: updatedTodo,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: "Todo update failed",
+      details: err.message,
+    });
+  }
+});
+
+
 
 
 // delete a todo by id
