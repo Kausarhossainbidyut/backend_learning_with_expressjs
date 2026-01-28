@@ -6,14 +6,61 @@ const todoSchema = require('../schema/todoSchema');
 const Todo = mongoose.model('Todo', todoSchema);
 
 // get all the todos
-router.get('/', async(req, res) => {
-    res.send('Get all todos');
+router.get("/", async (req, res) => {
+  try {
+    // শুধু pending todos আনবে
+    const todos = await Todo.find({ status: "pending" })
+      .select({
+        _id: 0,   // _id exclude
+        date: 0,  // date exclude
+      })
+      .limit(2);  // শুধু প্রথম ২ টা রেকর্ড আনবে
+
+    //  যদি কোনো todo না থাকে
+    if (todos.length === 0) {
+      return res.status(404).json({
+        message: "No todos found",
+      });
+    }
+
+    // ✅ Success Response
+    res.status(200).json({
+      message: "Todos retrieved successfully",
+      result: todos,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+      details: err.message,
+    });
+  }
 });
 
 // get a todo by id
-router.get('/:id', async(req, res) => {
+router.get("/:id", async (req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
 
+    if (!todo) {
+      return res.status(404).json({
+        message: "Todo not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Todo fetched successfully",
+      data: todo,
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+      details: err.message,
+    });
+  }
 });
+
 
 //  Create new todo
 router.post('/', async (req, res) => {
