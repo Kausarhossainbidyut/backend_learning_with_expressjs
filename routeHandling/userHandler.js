@@ -33,5 +33,23 @@ router.post('/', async (req, res) => {
     }
 })
 
+// post multiple users
+router.post('/all', async(req, res)=>{
+    try{
+        const userData = req.body
+    const result = await User.insertMany(userData)
+
+    res.status(201).json({
+        message:"Multiple todo created successfully",
+        data: result
+    })
+    }catch{
+        res.status(500).json({
+            error: "Maltiple insert failed",
+            details:err.message
+        })
+    }
+})
+
 
 module.exports = router;
