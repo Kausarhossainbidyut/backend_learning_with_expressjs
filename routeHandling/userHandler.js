@@ -51,5 +51,33 @@ router.post('/all', async(req, res)=>{
     }
 })
 
+// put a user
+router.put('/:id', async(req,res)=>{
+    try{
+        const updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        {$set: req.body},
+        {new: true, runValidators: true}
+    )
+
+    if(!updatedUser){
+        return res.status(404).json({
+            message:"User not found",
+        })
+    }
+
+    res.status(200).json({
+        message:"Todo updated done",
+        data: updatedUser
+    })
+
+    }catch(err){
+        res.status(500).json({
+            error: "server side problem",
+            detail: err.message
+        })
+    }
+})
+
 
 module.exports = router;
