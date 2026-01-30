@@ -24,16 +24,17 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.use(errorHandler);
+
 
 // define error handling middleware
-function errorHandler(err, req, res, next) {
+const errorHandler = (err, req, res, next) => {
   if(res.headersSent) {
     return next(err);
   }
     res.status(500).json({ error: err });
 }
 
+app.use(errorHandler)
 app.listen(3000, () => {
   console.log(' Server is running on port 3000');
 });

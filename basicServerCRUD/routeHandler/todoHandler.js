@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const todoSchema = require('../schema/todoSchema');
+const checkLogin = require('../middleware/checklogin')
 
 const Todo = mongoose.model('Todo', todoSchema);
 
 // get all the todos
-router.get("/", async (req, res) => {
+router.get("/", checkLogin, async (req, res) => {
   try {
     // শুধু pending todos আনবে
     const todos = await Todo.find({ status: "pending" })
