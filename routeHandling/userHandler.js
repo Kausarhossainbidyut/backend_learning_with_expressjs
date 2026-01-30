@@ -12,9 +12,75 @@ mongoose.connect('mongodb://localhost:27017/users')
 
 // Example route to get user information
 router.get('/', async (req, res) => {
-    res.send('User Information');
+    try{
+        const users = await User.find()
+
+        if(users.length ===0){
+            return res.status(404).json({
+                message: 'No User found'
+            })
+        }
+
+        res.status(200).json({
+            message:'Users find successfully',
+            result: users
+        })
+
+    }catch(err){
+        res.status(500).json({ 
+            error: 'There was a server side error',
+            detail: err.message 
+        });
+    }
 })
 
+router.get('/:id', async(req,res)=>{
+    try{
+        const user = await User.findById(req.params.id)
+
+        if(!user){
+            return res.status(404).json({
+                message:"User not found"
+            })
+        }
+
+        res.status(200).json({
+            message: "User fetched successfully",
+            data: user
+        })
+
+    }catch(err){
+        res.status(500).json({ 
+            error: 'There was a server side error',
+            message: err.message 
+        });
+    }
+})
+
+router.delete('/:id',async(req,res)=>{
+    try{
+        const user = await User.findById(req.params.id)
+
+        if(!user){
+            return res.status(404).json({
+                message:"User not found"
+            })
+        }
+
+        const deleteUser = await User.deleteOne({_id: req.params.id})
+
+        res.status(200).json({
+            message: "User fetched successfully",
+            data: deleteUser
+        })
+
+    }catch(err){
+        res.status(500).json({ 
+            error: 'There was a server side error',
+            message: err.message 
+        });
+    }
+})
 
 // post a new user
 router.post('/', async (req, res) => {
