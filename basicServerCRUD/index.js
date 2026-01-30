@@ -1,10 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
+const dotenv = require('dotenv')
 
 const todoHandler = require('./routeHandler/todoHandler');
 const userHandler = require('./routeHandler/userHandler');
 
 const app = express();
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 app.use(express.json());
 
 // database connection with mongoose
